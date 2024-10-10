@@ -1,9 +1,9 @@
-`include "n1_4x4.v"
+`include "n2_4x4.v"
 
 /*
 Total tests:         256
-Correct results:     164
-Accuracy: 64.062500%
+Correct results:     161
+Accuracy: 62.890625% 
 */
 
 module tb_mult_4x4;
@@ -14,7 +14,7 @@ module tb_mult_4x4;
     integer correct_results;  // Counter for correct matches
 
     // Instantiate the 4x4 multiplier
-    n1_4x4 uut (
+    n2_4x4 uut (
         .a(a), 
         .b(b), 
         .Y(Y)
@@ -44,8 +44,8 @@ module tb_mult_4x4;
 
         $display("\nTotal tests: %d", 256);
         $display("Correct results: %d", correct_results);
-        $display("Accuracy: %f%%", (correct_results * 100.0) / 256);
-        
+        $display("Accuracy: %f%", (correct_results * 100.0) / 256);
+
         // SImulation ends here
         $finish;  
     end
