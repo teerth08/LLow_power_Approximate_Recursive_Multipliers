@@ -24,7 +24,7 @@ endmodule
 
 
 // 4x4 Multiplier Module
-module mult_4x4(
+module exact_4x4(
     input [3:0] a, b,   // 4-bit inputs
     output [7:0] Y      // 8-bit product output
 );
