@@ -131,7 +131,6 @@ module n8_L1 (
     input [7:0]a,
     input [7:0]b,
     output [15:0]Y
-
 );
     
     wire [7:0]aL_bL ;
@@ -161,7 +160,7 @@ module n8_L1 (
     // 9 MSBs added via exact Adder
     assign padded_aH_bH = {aH_bH, 1'b0}; 
     assign padded_aH_bL = { 4'b0, aH_bL[7:3]} ;
-    assign padded_aL_bH = { 4'b0, aH_bL[7:3]} ;
+    assign padded_aL_bH = { 4'b0, aL_bH[7:3]} ;
 
     assign Y[15:7] = padded_aH_bH + padded_aH_bL + padded_aL_bH ; 
 
