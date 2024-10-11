@@ -94,7 +94,17 @@ module n2_4x4(
 
 endmodule
 
-module n8_5(
+/*
+Total tests     : 65536
+Correct results : 41216
+Accuracy        : 62.890625 %
+Error           : 37.109375 %
+
+=> Everything Works PERFECTLY
+*/
+
+
+module n8_6(
     input [7:0]a,
     input [7:0]b,
     output [15:0]Y

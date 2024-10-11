@@ -1,6 +1,7 @@
-// `include "n8_6_8x8.v"
-`include "n8_5_8x8.v"
-
+// `include "n8_6_8x8.v" // WORKS PERFECTLY
+`include "n8_5_8x8.v" // WORKS PERFECTLY
+// `include "n8_L1_8x8.v"
+// `include "n8_L2_8x8.v"
 
 
 module tb;
@@ -44,6 +45,7 @@ module tb;
         $display("\nTotal tests: %d", 65536);
         $display("Correct results: %d", correct_results);
         $display("Accuracy: %f%%", (correct_results * 100.0) / 65536);
+        $display("Error   : %f%%", 100 - (correct_results * 100.0) / 65536);
         
         // SImulation ends here
         $finish;  

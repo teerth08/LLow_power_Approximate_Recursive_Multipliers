@@ -108,6 +108,16 @@ module n1_4x4(
 endmodule
 
 
+/*
+Total tests     : 65536
+Correct results : 41984
+Accuracy        : 64.062500 %
+Error           : 35.937500 %
+
+=> Works PERFECTLY
+*/
+
+
 module n8_5(
     input [7:0]a,
     input [7:0]b,
@@ -119,8 +129,8 @@ module n8_5(
     wire [7:0]aL_bH;
     wire [7:0]aH_bH;
     
-    exact_4x4 e0(.a(a[3:0]), .b(b[3:0]), .Y(aL_bL));
-    // n1_4x4    n1(.a(a[3:0]), .b(b[3:0]), .Y(aL_bL));
+    // exact_4x4 e0(.a(a[3:0]), .b(b[3:0]), .Y(aL_bL));
+    n1_4x4    n1(.a(a[3:0]), .b(b[3:0]), .Y(aL_bL));
     exact_4x4 e1(.a(a[7:4]), .b(b[3:0]), .Y(aH_bL));
     exact_4x4 e2(.a(a[3:0]), .b(b[7:4]), .Y(aL_bH));
     exact_4x4 e3(.a(a[7:4]), .b(b[7:4]), .Y(aH_bH));
