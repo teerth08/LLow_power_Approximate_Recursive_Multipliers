@@ -16,9 +16,6 @@ def generate_multiplication_inputs(image, kernel, padding_method="reflect"):
           the pixel values to be multiplied for a specific output pixel.
   """
 
-  if not isinstance(image, np.ndarray) or not isinstance(kernel, np.ndarray):
-    raise TypeError("Image and kernel must be NumPy arrays.")
-
   # Calculate padding size for each dimension
   kernel_center = (kernel.shape[0] - 1) // 2
   pad_top, pad_bottom = kernel_center, kernel_center
@@ -66,7 +63,7 @@ def main():
         [[97, 121, 97], 
          [121, 151, 121], 
          [97, 121, 97]]
-                      )
+    )
 
     multiplication_inputs = generate_multiplication_inputs(image, kernel)
 
@@ -100,9 +97,9 @@ I need python code to perform image smoothing. But it's going to in 2 files of c
 
 
 [prompt_2]
-I have a file called inputs_for_verilog_multiplier.dat where each line has 2 numbers.
-I also have a mutiplier module n8_5.
-Write verilog code that takes input from each line of inputs_for_verilog_multiplier.dat and uses the module to multiply them and and the output needs to printed onto
-a file called output_from_verilog_multiplier.dat
+I have a file called inputs_for_verilog_multiplier.dat './test_input.dat'  where each line has 2 numbers.
+I also have a mutiplier module n8_5
 
+Write verilog code that takes input from each line of inputs_for_verilog_multiplier.dat and uses the module to multiply them and and the output needs to printed onto
+a file called './test_output.dat'
 '''

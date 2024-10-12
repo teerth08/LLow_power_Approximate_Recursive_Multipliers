@@ -197,37 +197,62 @@ module n8_6(
 endmodule
 
 
-module multiplier_test;
-    parameter WIDTH_A = 8;
-    parameter WIDTH_B = 8;
+/*
+WHY DOES THIS WORK 
+```sh
+$ iverlog mulitplier.v # generate a.out
+$ vvp a.out            # THIS WORKED
+```
 
-    reg [WIDTH_A-1:0] a;
-    reg [WIDTH_B-1:0] b;
-    wire [WIDTH_A+WIDTH_B-1:0] product;
+THIS DID NOT WORK
+```sh
+$ iverlog -o out.vvp multipler.v 
+$ vvp out.vvp
+```
 
-    integer file_handle_in, file_handle_out;
+*/
 
-    n8_5 multiplier (
-        .a(a),
-        .b(b),
-        .Y(product)
-    );
 
-       initial begin
+module tb_file_io_multiplier;
 
-            file_handle_in = $fopen("./test_input.dat", "r");
-            file_handle_out = $fopen("./test_output.dat", "w");
+    reg [7:0] a, b;   
+    wire [15:0]Y;       
 
-            while (!$feof(file_handle_in)) begin
-                $fscanf(file_handle_in, "%d %d", a, b);
-                #10;
-                $fwrite(file_handle_out, "%d\n", product);
-            end
+    integer input_file, output_file, scan_file;
+    integer result;
 
-                $fclose(file_handle_in);
-                $fclose(file_handle_out);
-                $finish;
+    n8_5 multiplier( .a(a), .b(b), .Y(Y));
+
+
+    initial begin
+        // input_file = $fopen("./test_input.dat", "r");   
+        // output_file = $fopen("./test_output.dat", "w"); 
+
+        input_file = $fopen("./input_to_multiply.dat", "r");   
+        output_file = $fopen("./output_from_multiplier.dat", "w"); 
+
+        if (input_file == 0 || output_file == 0) begin
+            $display("Error: Could not open input/output file.");
+            $finish;
         end
 
+        while (!$feof(input_file)) begin
+            scan_file = $fscanf(input_file, "%d %d", a, b); 
 
+            // Time for output to stabilize
+            #5;  
+            // $display("%d *%d = %d\n",a,b,a*b);
+
+            // Exact multiplication
+            // $fwrite(output_file, "%d\n", a*b);
+
+
+            $fwrite(output_file, "%d\n", Y);
+        end
+
+        $fclose(input_file);
+        $fclose(output_file);
+
+        $finish;
+    end
 endmodule
