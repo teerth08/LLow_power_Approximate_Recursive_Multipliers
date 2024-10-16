@@ -1,8 +1,10 @@
 # Low_power_Approximate_Recursive_Multipliers
 
 ## Ideas :-
-Use matlab to generate uniform random distribution of inputs to feed into n16_5, n16_6, etc
-You can convert the same multipliers to matlab, and do all the calculations there.
+1. Use matlab to generate uniform random distribution of inputs to feed into n16_5, n16_6, etc 
+    You can convert the same multipliers to matlab, and do all the calculations there.
+2. It matter WHAT IS THE DISTRIBUTION of inputs 
+    => for special cases, there might some patter we could exploit ; For general cases => Uniform distribution
 
 
 ## 8x8 Design ( 4 Novel Approaches )

@@ -1,10 +1,4 @@
-`include "n1_4x4.v"
-
-/* EVERYTHING WORKED !!
-Total tests:         256
-Correct results:     164
-Accuracy: 64.062500%
-*/
+`include "Kul4.v"
 
 module tb_mult_4x4;
 
@@ -14,7 +8,7 @@ module tb_mult_4x4;
     integer correct_results;  // Counter for correct matches
 
     // Instantiate the 4x4 multiplier
-    n1_4x4 uut (
+    Kul4 uut (
         .a(a), 
         .b(b), 
         .Y(Y)

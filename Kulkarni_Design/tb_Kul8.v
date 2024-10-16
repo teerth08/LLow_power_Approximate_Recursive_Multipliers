@@ -1,24 +1,13 @@
-`include "n1_4x4.v"
+`include "Kul8.v"
 
-/* EVERYTHING WORKED !!
-Total tests:         256
-Correct results:     164
-Accuracy: 64.062500%
-*/
+module tb;
+    reg [7:0] a, b;
+    wire [15:0] Y; 
 
-module tb_mult_4x4;
+    integer i, j;  
+    integer correct_results; 
 
-    reg [3:0] a, b;       // 4-bit inputs for the multiplier
-    wire [7:0] Y;         // 8-bit output
-    integer i, j;         // Loop variables
-    integer correct_results;  // Counter for correct matches
-
-    // Instantiate the 4x4 multiplier
-    n1_4x4 uut (
-        .a(a), 
-        .b(b), 
-        .Y(Y)
-    );
+    Kul8 uut ( .a(a),  .b(b),  .Y(Y) );
 
     initial begin
         correct_results = 0;
@@ -27,8 +16,8 @@ module tb_mult_4x4;
         $display("\n\n a   b  | Y(a*b)  | Expected  | Match\n");
         
         // Loop over all possible values of a and b (4-bit numbers: 0 to 15)
-        for (i = 0; i < 16; i = i + 1) begin
-            for (j = 0; j < 16; j = j + 1) begin
+        for (i = 0; i < 256; i = i + 1) begin
+            for (j = 0; j < 256; j = j + 1) begin
                 a = i;  
                 b = j;  
 
@@ -42,11 +31,11 @@ module tb_mult_4x4;
             end
         end
 
-        $display("\nTotal tests: %d", 256);
+        $display("\nTotal tests: %d", 65536);
         $display("Correct results: %d", correct_results);
-        $display("Accuracy: %f%%", (correct_results * 100.0) / 256);
-        $display("Error   : %f%%", 100 - (correct_results * 100.0) / 256);
-
+        $display("Accuracy: %f%%", (correct_results * 100.0) / 65536);
+        $display("Error   : %f%%", 100 - (correct_results * 100.0) / 65536);
+        
         // SImulation ends here
         $finish;  
     end
