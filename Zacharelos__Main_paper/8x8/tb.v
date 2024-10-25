@@ -1,7 +1,7 @@
-// `include "n8_6_8x8.v" // WORKS PERFECTLY
-// `include "n8_5_8x8.v" // WORKS PERFECTLY
-`include "n8_L1_8x8.v"
-// `include "n8_L2_8x8.v"
+`include "n8_6.v" // WORKS PERFECTLY
+// `include "n8_5.v" // WORKS PERFECTLY
+// `include "n8_L1.v"
+// `include "n8_L2.v"
 
 
 module tb;
@@ -14,8 +14,8 @@ module tb;
 
     // Instantiate 
     // n8_5 uut ( .a(a),  .b(b),  .Y(Y) );
-    // n8_6 uut ( .a(a),  .b(b),  .Y(Y) );
-    n8_L1 uut ( .a(a),  .b(b),  .Y(Y) );
+    n8_6 uut ( .a(a),  .b(b),  .Y(Y) );
+    // n8_L1 uut ( .a(a),  .b(b),  .Y(Y) );
     // n8_L2 uut ( .a(a),  .b(b),  .Y(Y) );
 
 

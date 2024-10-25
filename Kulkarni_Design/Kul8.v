@@ -51,10 +51,10 @@ module Kul8 (
     Kul4 m3 (.a(a[7:4]), .b(b[3:0]), .Y(AH_BH));
 
  
-    wire [7:0] padded_AL_BL;
-    wire [7:0] padded_AH_BL;
-    wire [7:0] padded_AL_BH;
-    wire [7:0] padded_AH_BH;
+    wire [15:0] padded_AL_BL;
+    wire [15:0] padded_AH_BL;
+    wire [15:0] padded_AL_BH;
+    wire [15:0] padded_AH_BH;
 
     assign padded_AL_BL = {8'b0, AL_BL};       
     assign padded_AH_BL = {4'b0, AH_BL, 4'b0}; 

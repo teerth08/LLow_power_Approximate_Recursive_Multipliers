@@ -35,4 +35,3 @@ module Kul4 (
     assign Y = padded_AL_BL + padded_AH_BL + padded_AL_BH + padded_AH_BH;
 
 endmodule
-

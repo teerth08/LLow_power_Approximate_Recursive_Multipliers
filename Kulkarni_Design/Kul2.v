@@ -1,6 +1,6 @@
 module Kul2(
     input [1:0]a,b,
-    output [4:0]Y
+    output [3:0]Y
 );
 
     assign Y[0] = a[0] & b[0];

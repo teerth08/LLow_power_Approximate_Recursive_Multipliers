@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`include "Reh16.v"
 
 module tb_multiplier_16x16;
 

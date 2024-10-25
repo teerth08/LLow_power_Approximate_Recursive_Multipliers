@@ -1,13 +1,14 @@
 `include "Kul8.v"
 
 module tb;
+
     reg [7:0] a, b;
     wire [15:0] Y; 
 
     integer i, j;  
     integer correct_results; 
 
-    Kul8 uut ( .a(a),  .b(b),  .Y(Y) );
+    Kul8 uut( .a(a), .b(b), .Y(Y));
 
     initial begin
         correct_results = 0;

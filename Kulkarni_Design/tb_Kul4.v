@@ -1,4 +1,4 @@
-`include "Kul4.v"
+`include "Kul4.v" // Works perfectly, exact result as the paper !
 
 module tb_mult_4x4;
 
