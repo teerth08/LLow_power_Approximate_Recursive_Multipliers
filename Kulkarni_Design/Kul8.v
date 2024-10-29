@@ -48,7 +48,7 @@ module Kul8 (
     Kul4 m0 (.a(a[3:0]), .b(b[3:0]), .Y(AL_BL));
     Kul4 m1 (.a(a[7:4]), .b(b[3:0]), .Y(AH_BL));
     Kul4 m2 (.a(a[3:0]), .b(b[7:4]), .Y(AL_BH));
-    Kul4 m3 (.a(a[7:4]), .b(b[3:0]), .Y(AH_BH));
+    Kul4 m3 (.a(a[7:4]), .b(b[7:4]), .Y(AH_BH));
 
  
     wire [15:0] padded_AL_BL;

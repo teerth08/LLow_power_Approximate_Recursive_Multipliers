@@ -27,8 +27,8 @@ module tb;
     initial begin
         correct_results = 0;
 
-        $display("Testing all possible combinations of 4-bit inputs for a and b:");
-        $display("\n\n a   b  | Y(a*b)  | Expected  | Match\n");
+        // $display("Testing all possible combinations of 4-bit inputs for a and b:");
+        // $display("\n\n a   b  | Y(a*b)  | Expected  | Match\n");
         
         // Loop over all possible values of a and b (4-bit numbers: 0 to 15)
         for (i = 0; i < 65_536; i = i + 1) begin
@@ -40,7 +40,7 @@ module tb;
                 // Wait for output to stabilize
                 #10;    
 
-                $display("%2d  %2d  | %3d     | %3d       | %d", a, b, Y, i * j, (Y == (i * j)) ? 1 : 0 );
+                // $display("%2d  %2d  | %3d     | %3d       | %d", a, b, Y, i * j, (Y == (i * j)) ? 1 : 0 );
                 // DSA trick, lol !!
                 correct_results = correct_results + ( (Y == i*j ) ? 1 : 0 ); 
             end

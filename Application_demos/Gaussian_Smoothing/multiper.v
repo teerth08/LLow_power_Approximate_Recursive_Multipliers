@@ -1,3 +1,70 @@
+module Kul2(
+    input [1:0]a,b,
+    output [3:0]Y
+);
+    assign Y[0] = a[0] & b[0];
+    assign Y[1] = (a[1] & b[0]) | (a[0] & b[1]);
+    assign Y[2] = a[1] & b[1];
+    assign Y[3] = 0;
+endmodule
+
+module Kul4 (
+    input [3:0] a, 
+    input [3:0] b, 
+    output [7:0] Y
+);
+
+    wire [3:0] AL_BL, AH_BL, AL_BH, AH_BH;
+
+    Kul2 m0 (.a(a[1:0]), .b(b[1:0]), .Y(AL_BL));
+    Kul2 m1 (.a(a[3:2]), .b(b[1:0]), .Y(AH_BL));
+    Kul2 m2 (.a(a[1:0]), .b(b[3:2]), .Y(AL_BH));
+    Kul2 m3 (.a(a[3:2]), .b(b[3:2]), .Y(AH_BH));
+
+ 
+    wire [7:0] padded_AL_BL;
+    wire [7:0] padded_AH_BL;
+    wire [7:0] padded_AL_BH;
+    wire [7:0] padded_AH_BH;
+
+    assign padded_AL_BL = {4'b0, AL_BL};       
+    assign padded_AH_BL = {2'b0, AH_BL, 2'b0}; 
+    assign padded_AL_BH = {2'b0, AL_BH, 2'b0}; 
+    assign padded_AH_BH = {AH_BH, 4'b0};       
+
+    assign Y = padded_AL_BL + padded_AH_BL + padded_AL_BH + padded_AH_BH;
+
+endmodule
+
+
+module Kul8 (
+    input [7:0] a, 
+    input [7:0] b, 
+    output [15:0] Y
+);
+
+    wire [7:0] AL_BL, AH_BL, AL_BH, AH_BH;
+
+    Kul4 m0 (.a(a[3:0]), .b(b[3:0]), .Y(AL_BL));
+    Kul4 m1 (.a(a[7:4]), .b(b[3:0]), .Y(AH_BL));
+    Kul4 m2 (.a(a[3:0]), .b(b[7:4]), .Y(AL_BH));
+    Kul4 m3 (.a(a[7:4]), .b(b[7:4]), .Y(AH_BH));
+
+ 
+    wire [15:0] padded_AL_BL;
+    wire [15:0] padded_AH_BL;
+    wire [15:0] padded_AL_BH;
+    wire [15:0] padded_AH_BH;
+
+    assign padded_AL_BL = {8'b0, AL_BL};       
+    assign padded_AH_BL = {4'b0, AH_BL, 4'b0}; 
+    assign padded_AL_BH = {4'b0, AL_BH, 4'b0}; 
+    assign padded_AH_BH = {AH_BH, 8'b0};       
+
+    assign Y = padded_AL_BL + padded_AH_BL + padded_AL_BH + padded_AH_BH;
+
+endmodule
+
 // Half Adder Module
 module HA(
     input a, b,
@@ -215,44 +282,94 @@ $ vvp out.vvp
 
 module tb_file_io_multiplier;
 
-    reg [7:0] a, b;   
-    wire [15:0]Y;       
+    reg [7:0] a, b;          
+    wire [15:0] Y; 
 
     integer input_file, output_file, scan_file;
     integer result;
-
-    n8_5 multiplier( .a(a), .b(b), .Y(Y));
-
+    
+    n8_5 multiplier( .a(a), .b(b), .Y(Y)) ;
 
     initial begin
-        // input_file = $fopen("./test_input.dat", "r");   
-        // output_file = $fopen("./test_output.dat", "w"); 
+        input_file = $fopen("./input_to_multiply.dat", "r");         
+        output_file = $fopen("./output_from_multiplier_N8_5.dat", "w"); 
 
-        input_file = $fopen("./input_to_multiply.dat", "r");   
-        output_file = $fopen("./output_from_multiplier.dat", "w"); 
-
-        if (input_file == 0 || output_file == 0) begin
-            $display("Error: Could not open input/output file.");
+        if (input_file == 0) begin
+            $display("Error: Could not open input file. Check if file exists in current directory.");
             $finish;
         end
+
+        if (output_file == 0) begin
+            $display("Error: Could not create output file. Check directory permissions.");
+            $fclose(input_file);
+            $finish;
+        end
+
+        $display("Starting processing...");
 
         while (!$feof(input_file)) begin
             scan_file = $fscanf(input_file, "%d %d", a, b); 
 
-            // Time for output to stabilize
-            #5;  
-            // $display("%d *%d = %d\n",a,b,a*b);
+            #1;  
 
-            // Exact multiplication
-            // $fwrite(output_file, "%d\n", a*b);
-
-
+            $display("%d *%d = %4d ; Y=%4d\n",a,b,a*b,Y);
+            // Write the result to the output file
             $fwrite(output_file, "%d\n", Y);
         end
 
         $fclose(input_file);
         $fclose(output_file);
 
+        $finish;
+    end
+endmodule
+
+
+
+// It takes 31 minutes for this to do all the 8 million calculation
+module tb_file_io_multipliera__;
+    reg [7:0] a, b;          
+    wire [15:0] Y; 
+    integer input_file, output_file, scan_file;
+    integer result, count;
+    parameter REPORT_INTERVAL = 10000; // Report every 10k lines
+    
+    Kul8 multiplier( .a(a), .b(b), .Y(Y));
+    
+    initial begin
+        count = 0;
+        input_file = $fopen("input_to_multiply.dat", "r");
+        output_file = $fopen("output_from_multiplier.dat", "w");
+        
+        if (input_file == 0) begin
+            $display("Error: Could not open input file. Check if file exists in current directory.");
+            $finish;
+        end
+        if (output_file == 0) begin
+            $display("Error: Could not create output file. Check directory permissions.");
+            $fclose(input_file);
+            $finish;
+        end
+
+        $display("Starting processing...");
+        
+        while (!$feof(input_file)) begin
+            scan_file = $fscanf(input_file, "%d %d", a, b);
+            if (scan_file == 2) begin  // Only process if we read 2 values successfully
+                #1;
+                $fwrite(output_file, "%d\n", Y);
+                
+                count = count + 1;
+                if (count % REPORT_INTERVAL == 0) begin
+                    $display("Processed %0d lines", count);
+                    $fflush(output_file);
+                end
+            end
+        end
+        
+        $display("Processing complete. Total lines: %0d", count);
+        $fclose(input_file);
+        $fclose(output_file);
         $finish;
     end
 endmodule

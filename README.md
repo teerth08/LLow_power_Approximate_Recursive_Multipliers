@@ -13,6 +13,9 @@ Explain to sir, WHY this paper implementation was hard ( refering to many other 
 Why we could not afford to chagne the paper
 But in the spirit of what sir asked ( to incorporate what sir taught in the class :- delay, critical path, analysis from genus we spent time in THAT apart from the paper's requirements too)
 
+A Good example of where SPECIALIZED MULTIPLIERS can be used :-
+Just in the gaussian smoothing ( One of the input is always PRE DETERMINED ( 97, 121, 151) this mean we need to find circuits that give better accuracy MORE THIS INPUT )
+
 
 ## 8x8 Design ( 4 Novel Approaches )
 
