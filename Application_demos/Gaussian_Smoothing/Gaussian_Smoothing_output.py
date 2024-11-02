@@ -40,7 +40,7 @@ def main():
 
     image_data = np.array(image)
 
-    with open("./output_from_multiplier_N8_5.dat", "r") as f:
+    with open("./data/output_from_multiplier_from_cuda_Reh8.dat", "r") as f:
         print(len(f.readlines())) # This HAS to be 8_619_075 ; 
         # f.readlines() CAN ONLY BE CALLED ONCE IN A FILE OBJECT ; what is the reason ?? 
         # The file pointer will be at the end of the file after one call of f.readlines()
@@ -55,7 +55,7 @@ def main():
     
     print(len(outputs))
     smoothed_image = reconstruct_smoothed_image(image_data, outputs)
-    cv2.imwrite("./output/smoothed_image.jpg", smoothed_image)
+    cv2.imwrite("./output/smoothed_image_Reh8.jpg", smoothed_image)
 
 if __name__ == "__main__":
     main()

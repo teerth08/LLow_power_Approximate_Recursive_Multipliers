@@ -2,6 +2,13 @@
 // `include "AXRM2.v"
 `include "AXRM3.v"
 
+/* Run using this test_bench, only need to comment out which multiplier you are using 
+$ iverilog -0 a.vvp ./tb.vp
+$ vvp a.vvp 
+*/
+
+
+
 module tb;
 
     reg [7:0] a, b;
@@ -12,7 +19,8 @@ module tb;
 
     // AxRM1 multiplier( .a(a), .b(b), .Y(Y)) ;
     // AxRM2 multiplier( .a(a), .b(b), .Y(Y)) ;
-    AxRM3 multiplier( .a(a), .b(b), .Y(Y)) ;
+    // AxRM3 multiplier( .a(a), .b(b), .Y(Y)) ;
+    // AxRM3_new multiplier( .a(a), .b(b), .Y(Y)) ;
 
     initial begin
         correct_results = 0;
