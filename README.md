@@ -37,7 +37,7 @@ In GPU it's less than 4 seconds
 
 The reason why SSIM and PSNR are differnet because we don't know which EXACT IMAGE THE PAPER USED.
 
-
+A VIDEO DEMO OF HOW ( NVIDIA CUDA -> IMAGE SHARPENING WORKFLOW ) ; Or SOME VIDEO DEMO
 
 ## 8x8 Design ( 4 Novel Approaches )
 

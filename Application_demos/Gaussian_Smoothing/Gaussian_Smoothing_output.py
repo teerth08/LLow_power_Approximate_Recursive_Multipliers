@@ -8,7 +8,6 @@ def reconstruct_smoothed_image(image_data, outputs):
         [ 97,  121,  97]
     ])
 
-
     kernel_sum = np.sum(kernel)
     smoothed_image = np.zeros_like(image_data)
 
