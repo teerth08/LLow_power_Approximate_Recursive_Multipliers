@@ -33,7 +33,7 @@ we did BOTH ( 4 peoples worked on FPGA, 3 worked on CUDA )
 
     
 In normal verilog, CPU and the entire laptop was heating up, it was taking upwards of 40 minutes 
-In GPU it's less than 4 seconds
+In GPU it's less than 4 seconds.
 
 The reason why SSIM and PSNR are differnet because we don't know which EXACT IMAGE THE PAPER USED.
 
